@@ -13,23 +13,24 @@ class ofxMesh : public ofMesh {
 public:  
     void toMesh(ofMesh & mesh);
 	void fromMesh(const ofMesh & mesh);
+    
     void addFace(ofVec3f a, ofVec3f b, ofVec3f c);
     void addFace(ofVec3f a, ofVec3f b, ofVec3f c, ofVec3f d);
     void addFace(ofRectangle r);
     void addBox(ofRectangle r, float height);
+    ofxMesh &addMesh(ofMesh b);
+	void addMeshes(const vector<ofxMesh> & input);
+
     void translate(const ofVec3f & pos);
     void translate(float x, float y, float z);
     void rotate(float angle, ofVec3f axis);
 	void transform(const ofMatrix4x4 trans);
-	
     void scale(float x, float y, float z=1);
+
     void invertNormals();
     ofVec3f getNormal(const ofVec3f& v1, const ofVec3f& v2, const ofVec3f& v3);
-
     void buildNormals();
     
-    ofxMesh &addMesh(ofMesh b);
-	void addMeshes(const vector<ofxMesh> & input);
 
 //	float getWidth(){
 //

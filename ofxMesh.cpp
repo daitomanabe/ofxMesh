@@ -96,6 +96,31 @@ void ofxMesh::addBox(ofRectangle r, float height) {
     addMesh(mesh);
 }
 
+ofxMesh &ofxMesh::addMesh(ofMesh b) {
+
+    int numVertices = getNumVertices();
+    int numIndices = getNumIndices();
+
+    //add b
+    addVertices(b.getVertices());
+    addNormals(b.getNormals());
+    addIndices(b.getIndices());
+
+    //shift indices for b
+    for (int i=0; i<b.getNumIndices(); i++) {
+        getIndices()[numIndices+i] += numVertices;
+    }
+
+    return *this;
+}
+
+void ofxMesh::addMeshes(const vector<ofxMesh> & input)
+{
+    for (int i=0; i<input.size(); i++) {
+        addMesh(input[i]);
+    }
+}
+
 void ofxMesh::translate(const ofVec3f & pos) {
     for (int i=0; i<getNumVertices(); i++) {
         getVertices()[i] += pos;
@@ -156,30 +181,7 @@ void ofxMesh::buildNormals() {
 	}
 }
 
-ofxMesh &ofxMesh::addMesh(ofMesh b) {
 
-    int numVertices = getNumVertices();
-    int numIndices = getNumIndices();
-
-    //add b
-    addVertices(b.getVertices());
-    addNormals(b.getNormals());
-    addIndices(b.getIndices());
-
-    //shift indices for b
-    for (int i=0; i<b.getNumIndices(); i++) {
-        getIndices()[numIndices+i] += numVertices;
-    }
-
-    return *this;
-}
-
-void ofxMesh::addMeshes(const vector<ofxMesh> & input)
-{
-    for (int i=0; i<input.size(); i++) {
-        addMesh(input[i]);
-    }
-}
 
 
 //ofMesh ofxMesh::dodecahedron(float r )
