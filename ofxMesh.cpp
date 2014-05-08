@@ -55,19 +55,23 @@ void ofxMesh::addBox(ofRectangle r, float height) {
     mesh.addFace(c,g,h,d); //right
     mesh.addFace(d,h,e,a); //back
     mesh.addFace(a,e,f,b); //left
-    
+     
     addMesh(mesh);
 }
 
-void ofxMesh::translate(ofVec3f pos) {
+void ofxMesh::translate(const ofVec3f & pos) {
     for (int i=0; i<getNumVertices(); i++) {
         getVertices()[i] += pos;
     }
 }
 
 void ofxMesh::translate(float x, float y, float z) {
+//    for (int i=0; i<getNumVertices(); i++) {
+//        getVertices()[i] += ofVec3f(x,y,z);
+//    }
     for (int i=0; i<getNumVertices(); i++) {
-        getVertices()[i] += ofVec3f(x,y,z);
+        ofVec3f tmp = getVertices()[i] + ofVec3f(x,y,z);
+		getVertices()[i].set(tmp);
     }
 }
 
@@ -82,6 +86,12 @@ void ofxMesh::scale(float x, float y, float z) {
         getVertices()[i].x *= x;
         getVertices()[i].y *= y;
         getVertices()[i].z *= z;
+    }
+}
+
+void ofxMesh::transform(const ofMatrix4x4 trans) {
+    for (int i=0; i<getNumVertices(); i++) {
+		getVertices()[i] = trans.preMult(getVertices()[i]);
     }
 }
 
