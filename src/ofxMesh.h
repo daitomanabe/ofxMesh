@@ -30,21 +30,22 @@ public:
     void invertNormals();
     ofVec3f getNormal(const ofVec3f& v1, const ofVec3f& v2, const ofVec3f& v3);
     void buildNormals();
-    
 
-//	float getWidth(){
-//
-//		float minX = std::numeric_limits<int>::max();
-//		float maxX = std::numeric_limits<int>::min();
-//
-//		for (int i=0; i<getNumVertices(); i++) {
-//			ofVec3f v = getVertices()[i];
-//			minX = MIN(minX, v.x);
-//			maxX = MAX(maxX, v.x);
-//		}
-//		float width = fabs(minX - maxX);
-//		return width;
-//	}
+
+
+	float getWidth(){
+
+		float minX = std::numeric_limits<int>::max();
+		float maxX = std::numeric_limits<int>::min();
+
+		for (int i=0; i<getNumVertices(); i++) {
+			ofVec3f v = getVertices()[i];
+			minX = MIN(minX, v.x);
+			maxX = MAX(maxX, v.x);
+		}
+		float width = fabs(minX - maxX);
+		return width;
+	}
     //    P(± r/√3, ± r/√3, ± r/√3)
     //    P(0, ± r/(√3*φ), ± (r*φ)/√3)
     //    P(± r/(√3*φ), ± (r*φ)/√3, 0)
